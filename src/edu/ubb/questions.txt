@@ -1,0 +1,15 @@
+În ce situaţii se interzice circulaţia pe drumurile publice a autovehiculelor?
+*A. atunci când zgomotul în mers sau în staţionare depăşeşte limita legală admisă pentru tipul respectiv de vehicul;
+*B. atunci când nu se respectă regulile referitoare la transportul produselor periculoase;
+*C. atunci când sunt montate alte dispozitive de avertizare sonoră decât cele omologate de autoritatea competentă;
+[1, 2, 3]
+În care dintre situaţii conducătorul de autovehicule este obligat, pe timp de noapte, să schimbe lumina de drum cu cea de întâlnire?
+*A. când drumul este neiluminat;
+*B. când circulă în localitate, pe un drum cu mai multe benzi pe sens;
+*C. în cazul în care din sens opus se apropie un autovehicul, de la o distanţă de cel puţin 200 m;
+[3]
+Cum veţi proceda la întâlnirea semnalului intermitent de culoare galbenă?
+*A. acest semnal nu vă permite trecerea;
+*B. veţi circula cu viteză redusă;
+*C. veţi respecta semnificaţia semnalizării rutiere şi a regulilor de circulaţie aplicabile în acel loc;
+[2, 3]
