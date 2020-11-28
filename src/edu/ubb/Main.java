@@ -1,6 +1,7 @@
 package edu.ubb;
 
 import edu.ubb.controller.Controller;
+import edu.ubb.model.Question;
 import edu.ubb.repository.FileRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -24,6 +25,10 @@ public class Main extends Application {
     public static void main(String[] args) throws IOException {
         launch(args);
         Controller controller = new Controller();
-        controller.initializeSheet();
+        int index = 1;
+        for (Question q : controller.initializeSheet().getQuestions()) {
+            System.out.println(index++ + " " + q);
+        }
+
     }
 }

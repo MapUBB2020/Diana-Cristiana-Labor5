@@ -25,7 +25,7 @@ public class Controller implements Initializable {
         allQuestions = fileRepository.readQuestions();
         List<Question> randomQuestions = new ArrayList<>();
         Random rand = new Random();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 26; i++) {
             //se iau random 26 intrebari pentru un chestionar
             int randomIndex = rand.nextInt(allQuestions.size()); //alegem un nr random care e indexul unei intrebari
             Question randomQuestion = allQuestions.get(randomIndex); //se ia intrebarea de la indexul random
@@ -37,8 +37,18 @@ public class Controller implements Initializable {
         return questionSheet;
     }
 
-    public int answerQuestion(List<Integer> answers, QuestionSheet qS) {
-        int points = 0;
+    public int answerQuestion(int points, List<Integer> answers, Question q) {
+        if (answers == q.getCorrectAnswers()) {
+            points += 1;
+        }
+        else {
+            points -= 1;
+        }
         return points;
+    }
+
+    public boolean verify(int points) {
+        // daca are mai mult de 4 raspunsuri gresite => false
+        return points < 4;
     }
 }
