@@ -15,7 +15,7 @@ public class FileRepository {
     public FileRepository() {
     }
 
-    public void readQuestions() throws IOException {
+    public List<Question> readQuestions() throws IOException {
         String line = " ";
         BufferedReader br = new BufferedReader(new FileReader("src\\edu\\ubb\\questions.txt"));
         while ((line = br.readLine()) != null) {
@@ -24,12 +24,13 @@ public class FileRepository {
             List<Integer> correct = new ArrayList<>();
             String[] obj = line.split("; ");
 
-            question.setQuestion(obj[0]);
-            answers.add(obj[1]);
+            question.setQuestion(obj[0]); //primul field e intrebarea
+            answers.add(obj[1]); //fields 2, 3, 4 -> raspunsuri
             answers.add(obj[2]);
             answers.add(obj[3]);
             question.setAnswers(answers);
 
+            //lista de la field4 -> lista index raspunsuri corecte
             String[] choice = obj[4].split(", ");
             for (int i = 0; i < choice.length; i++) {
                 if (i == 0) {
@@ -41,8 +42,6 @@ public class FileRepository {
             question.setCorrectAnswers(correct);
             questions.add(question);
         }
-        for (Question q : questions) {
-            System.out.println(q);
-        }
+        return questions;
     }
 }

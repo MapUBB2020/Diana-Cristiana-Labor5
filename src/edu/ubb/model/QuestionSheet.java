@@ -16,4 +16,14 @@ public class QuestionSheet {
     public QuestionSheet(List<Question> questions) {
         this.questions = questions;
     }
+
+    public QuestionSheet() {
+    }
+
+    @Override
+    public String toString() {
+        return "QuestionSheet{" +
+                "questions=" + questions +
+                '}';
+    }
 }
