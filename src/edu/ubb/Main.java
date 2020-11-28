@@ -9,19 +9,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Main{
+public class Main extends Application {
 
-    /*@Override
+    @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("view.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
         primaryStage.show();
-    }*/
+    }
 
 
     public static void main(String[] args) throws IOException {
-        //launch(args);
+        launch(args);
         FileRepository fileRepository = new FileRepository();
         fileRepository.readQuestions();
     }

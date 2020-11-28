@@ -1,7 +1,6 @@
 <component name="libraryTable">
   <library name="lib">
     <CLASSES>
-<<<<<<< HEAD
       <root url="file://$PROJECT_DIR$/../../../Desktop/facultate/semestrul 3/MAP/javafx-sdk-15.0.1/lib" />
     </CLASSES>
     <JAVADOC />
@@ -10,15 +9,5 @@
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/../../../Desktop/facultate/semestrul 3/MAP/javafx-sdk-15.0.1/lib" recursive="false" />
     <jarDirectory url="file://$PROJECT_DIR$/../../../Desktop/facultate/semestrul 3/MAP/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
-=======
-      <root url="file://$USER_HOME$/openjfx-15.0.1_windows-x64_bin-sdk (1)/javafx-sdk-15.0.1/lib" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES>
-      <root url="file://$USER_HOME$/openjfx-15.0.1_windows-x64_bin-sdk (1)/javafx-sdk-15.0.1/lib" />
-    </SOURCES>
-    <jarDirectory url="file://$USER_HOME$/openjfx-15.0.1_windows-x64_bin-sdk (1)/javafx-sdk-15.0.1/lib" recursive="false" />
-    <jarDirectory url="file://$USER_HOME$/openjfx-15.0.1_windows-x64_bin-sdk (1)/javafx-sdk-15.0.1/lib" recursive="false" type="SOURCES" />
->>>>>>> ec29da880ff35962cb6a0a6233a76e7981f3c56a
   </library>
 </component>
