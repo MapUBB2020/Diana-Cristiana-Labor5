@@ -1,5 +1,6 @@
 package edu.ubb;
 
+import edu.ubb.controller.Controller;
 import edu.ubb.repository.FileRepository;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +23,7 @@ public class Main extends Application {
 
     public static void main(String[] args) throws IOException {
         launch(args);
-        FileRepository fileRepository = new FileRepository();
-        fileRepository.readQuestions();
+        Controller controller = new Controller();
+        controller.initializeSheet();
     }
 }
