@@ -21,7 +21,7 @@ public class Controller implements Initializable {
     FileRepository fileRepository = new FileRepository();
     public List<Question> allQuestions;
 
-    public void initializeSheet() throws IOException {
+    public QuestionSheet initializeSheet() throws IOException {
         allQuestions = fileRepository.readQuestions();
         List<Question> randomQuestions = new ArrayList<>();
         Random rand = new Random();
@@ -34,8 +34,11 @@ public class Controller implements Initializable {
 
         }
         questionSheet.setQuestions(randomQuestions);
-        for (Question q : questionSheet.getQuestions()) {
-            System.out.println(q);
-        }
+        return questionSheet;
+    }
+
+    public int answerQuestion(List<Integer> answers, QuestionSheet qS) {
+        int points = 0;
+        return points;
     }
 }
