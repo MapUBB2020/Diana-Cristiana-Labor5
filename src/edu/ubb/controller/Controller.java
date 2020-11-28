@@ -1,4 +1,4 @@
-package edu.ubb;
+package edu.ubb.controller;
 
 import javafx.fxml.Initializable;
 
