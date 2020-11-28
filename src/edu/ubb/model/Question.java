@@ -31,9 +31,21 @@ public class Question {
         this.correctAnswers = correctAnswers;
     }
 
+    public Question() {
+    }
+
     public Question(String question, List<String> answers, List<Integer> correctAnswers) {
         this.question = question;
         this.answers = answers;
         this.correctAnswers = correctAnswers;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "question='" + question + '\'' +
+                ", answers=" + answers +
+                ", correctAnswers=" + correctAnswers +
+                '}';
     }
 }
