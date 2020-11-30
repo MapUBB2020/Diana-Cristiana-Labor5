@@ -48,7 +48,7 @@ public class Main extends Application {
         javafx.scene.control.Label titleLabel = new javafx.scene.control.Label("CHESTIONAR AUTO");
         titleLabel.setFont(new Font("Arial", 56));
         titleLabel.setTextFill(javafx.scene.paint.Color.web("#454545"));
-        
+
 
         javafx.scene.control.Button startButton = new javafx.scene.control.Button("START");
         startButton.setPrefSize(170, 70);
