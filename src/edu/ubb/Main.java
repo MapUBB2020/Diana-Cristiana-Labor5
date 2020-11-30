@@ -5,6 +5,7 @@ import edu.ubb.controller.Controller;
 import edu.ubb.model.Question;
 import edu.ubb.model.QuestionSheet;
 import edu.ubb.repository.FileRepository;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -47,6 +48,7 @@ public class Main extends Application {
         javafx.scene.control.Label titleLabel = new javafx.scene.control.Label("CHESTIONAR AUTO");
         titleLabel.setFont(new Font("Arial", 56));
         titleLabel.setTextFill(javafx.scene.paint.Color.web("#454545"));
+        
 
         javafx.scene.control.Button startButton = new javafx.scene.control.Button("START");
         startButton.setPrefSize(170, 70);
