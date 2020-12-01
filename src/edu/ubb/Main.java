@@ -89,7 +89,7 @@ public class Main extends Application {
         subtitleLabel.setTextFill(javafx.scene.paint.Color.web("#6E6E6E"));
 
         //imagine
-        File file = new File("D:\\MAP\\Diana-Cristiana-Labor5\\car1.png");
+        File file = new File("D:\\MAP\\Diana-Cristiana-Labor5\\car1.png"); //trebuie scrisa adresa imaginii salvate in calc tau
         javafx.scene.image.Image image = new Image(file.toURI().toString());
         javafx.scene.image.ImageView iv = new ImageView(image);
 
