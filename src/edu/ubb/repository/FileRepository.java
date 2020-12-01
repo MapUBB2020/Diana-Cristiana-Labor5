@@ -21,7 +21,7 @@ public class FileRepository {
         while ((line = br.readLine()) != null) {
             Question question = new Question();
             List<String> answers = new ArrayList<>();
-            List<Integer> correct = new ArrayList<>();
+            List<String> correct = new ArrayList<>();
             String[] obj = line.split("; ");
 
             question.setQuestion(obj[0]); //primul field e intrebarea
@@ -34,9 +34,9 @@ public class FileRepository {
             String[] choice = obj[4].split(", ");
             for (int i = 0; i < choice.length; i++) {
                 if (i == 0) {
-                    correct.add(Integer.parseInt(choice[0].substring(1, 2)));
+                    correct.add(choice[0].substring(1, 2));
                 } else {
-                    correct.add(Integer.parseInt(choice[i].substring(0, 1)));
+                    correct.add(choice[i].substring(0, 1));
                 }
             }
             question.setCorrectAnswers(correct);

@@ -37,18 +37,34 @@ public class Controller implements Initializable {
         return questionSheet;
     }
 
-    public int answerQuestion(int points, List<Integer> answers, Question q) {
-        if (answers == q.getCorrectAnswers()) {
-            points += 1;
+    /**
+     *
+     * @param correct nr rasp corecte
+     * @param incorrect nr rasp incorecte
+     * @param answers input tastatura
+     * @param q intrebare actuala
+     * @return points[0] -correct, points[1] -incorrect
+     * */
+    public int[] answerQuestion(int correct, int incorrect, String answers, Question q) {
+        String answer = "";
+        for (int i = 0; i < q.getCorrectAnswers().size(); i++) {
+            if (i == q.getCorrectAnswers().size()-1) {
+                answer+=q.getCorrectAnswers().get(i);
+            }
+            else {
+                answer += q.getCorrectAnswers().get(i) + ", ";
+            }
+        }
+        int[] points = new int[2];
+        if (answers.equals(answer)) {
+            correct += 1;
         }
         else {
-            points -= 1;
+            incorrect += 1;
         }
+        points[0] = correct;
+        points[1] = incorrect;
         return points;
     }
 
-    public boolean verify(int points) {
-        // daca are mai mult de 4 raspunsuri gresite => false
-        return points < 4;
-    }
 }

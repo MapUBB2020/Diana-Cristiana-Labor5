@@ -5,7 +5,7 @@ import java.util.List;
 public class Question {
     private String question;
     private List<String> answers;
-    private List<Integer> correctAnswers;
+    private List<String> correctAnswers;
 
     public String getQuestion() {
         return question;
@@ -23,18 +23,18 @@ public class Question {
         this.answers = answers;
     }
 
-    public List<Integer> getCorrectAnswers() {
+    public List<String> getCorrectAnswers() {
         return correctAnswers;
     }
 
-    public void setCorrectAnswers(List<Integer> correctAnswers) {
+    public void setCorrectAnswers(List<String> correctAnswers) {
         this.correctAnswers = correctAnswers;
     }
 
     public Question() {
     }
 
-    public Question(String question, List<String> answers, List<Integer> correctAnswers) {
+    public Question(String question, List<String> answers, List<String> correctAnswers) {
         this.question = question;
         this.answers = answers;
         this.correctAnswers = correctAnswers;
