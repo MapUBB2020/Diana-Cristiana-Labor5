@@ -6,16 +6,21 @@ import edu.ubb.model.QuestionSheet;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
+import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -31,6 +36,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main extends Application {
 
@@ -47,6 +54,9 @@ public class Main extends Application {
     private Timeline timeline;
     private int min = 30;
     private int startTimeSec, startTimeMin;
+    private List<Question> finalQuestions;
+    private List<String> finalAnswers;
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -55,6 +65,8 @@ public class Main extends Application {
         incorrectPoints = 0;
         QuestionSheet questionSheet = controller.initializeSheet();
         final int[] count = {0};
+        finalQuestions = new ArrayList<>();
+        finalAnswers = new ArrayList<>();
 
 
         //nume pagina
@@ -233,6 +245,8 @@ public class Main extends Application {
 
                         String answer = inputAnswer1.getText();
                         Question question1 = questionSheet.getQuestions().get(count[0]);
+                        finalQuestions.add(question1);
+                        finalAnswers.add(answer);
                         correctPoints = controller.answerQuestion(correctPoints, incorrectPoints, answer, question1)[0];
                         incorrectPoints = controller.answerQuestion(correctPoints, incorrectPoints, answer, question1)[1];
 
@@ -289,7 +303,6 @@ public class Main extends Application {
 
         String q = count[0] + 1 + ". " + questionSheet.getQuestions().get(count[0]).getQuestion();
         javafx.scene.control.Label firstQ = new javafx.scene.control.Label(q);
-        firstQ.setWrapText(true);
         firstQ.setFont(new Font("Arial", 24));
         firstQ.setWrapText(true);
         firstQ.setTextAlignment(TextAlignment.JUSTIFY);
@@ -334,6 +347,8 @@ public class Main extends Application {
         nextButton.setOnAction((event) -> {
             String answer = inputAnswer.getText();
             Question question = questionSheet.getQuestions().get(count[0]);
+            finalQuestions.add(question);
+            finalAnswers.add(answer);
             correctPoints = controller.answerQuestion(correctPoints, incorrectPoints, answer, question)[0];
             incorrectPoints = controller.answerQuestion(correctPoints, incorrectPoints, answer, question)[1];
 
@@ -402,6 +417,7 @@ public class Main extends Application {
         incorrectAns.setFont(new Font("Arial", 25));
         incorrectAns.setTextFill(javafx.scene.paint.Color.web("#760909"));
 
+        //buton restart
         Button restartButton = new Button("INCEARCA DIN NOU");
         restartButton.setPrefSize(250, 75);
         restartButton.setFont(new Font("Arial", 20));
@@ -413,6 +429,90 @@ public class Main extends Application {
                 e.printStackTrace();
             }
         });
+
+        //buton vezi rasp
+        Button answButton = new Button("VEZI RASPUNSURILE");
+        answButton.setPrefSize(250, 50);
+        answButton.setFont(new Font("Arial", 17));
+        answButton.setStyle("-fx-background-color: #9CEA7E");
+        answButton.setOnAction(event -> {
+            Scene seeAnswersScene = new Scene(new Group(), 1100, 800);
+            primaryStage.setScene(seeAnswersScene);
+
+            //box complet
+            VBox totalBox = new VBox();
+            totalBox.setSpacing(30);
+            totalBox.setPadding(new Insets(0, 0, 0, 0));
+
+            for (int i = 0; i < finalQuestions.size(); i++) {
+                javafx.scene.control.Label questionLabel = new javafx.scene.control.Label(i + 1 + ". " + finalQuestions.get(i).getQuestion());
+                questionLabel.setFont(new Font("Arial", 24));
+                questionLabel.setWrapText(true);
+                questionLabel.setTextAlignment(TextAlignment.JUSTIFY);
+                questionLabel.setMaxWidth(900);
+                javafx.scene.control.Label answer1Label = new javafx.scene.control.Label(finalQuestions.get(i).getAnswers().get(0));
+                answer1Label.setFont(new Font("Arial", 20));
+                answer1Label.setWrapText(true);
+                answer1Label.setTextAlignment(TextAlignment.JUSTIFY);
+                answer1Label.setMaxWidth(900);
+                javafx.scene.control.Label answer2Label = new javafx.scene.control.Label(finalQuestions.get(i).getAnswers().get(1));
+                answer2Label.setFont(new Font("Arial", 20));
+                answer2Label.setWrapText(true);
+                answer2Label.setTextAlignment(TextAlignment.JUSTIFY);
+                answer2Label.setMaxWidth(900);
+                javafx.scene.control.Label answer3Label = new javafx.scene.control.Label(finalQuestions.get(i).getAnswers().get(2));
+                answer3Label.setFont(new Font("Arial", 20));
+                answer3Label.setWrapText(true);
+                answer3Label.setTextAlignment(TextAlignment.JUSTIFY);
+                answer3Label.setMaxWidth(900);
+                javafx.scene.control.Label correctAnswers = new javafx.scene.control.Label("Raspunsuri corecte: " + finalQuestions.get(i).getCorrectAnswers().toString());
+                correctAnswers.setFont(new Font("Arial", 18));
+                javafx.scene.control.Label yourAnswers = new javafx.scene.control.Label("Raspunsurile tale: " + finalAnswers.get(i));
+                yourAnswers.setFont(new Font("Arial", 18));
+
+                //box intrebare
+                VBox questionBox = new VBox();
+                questionBox.setSpacing(0);
+                questionBox.setPadding(new Insets(20, 0, 0, 20));
+                questionBox.getChildren().add(questionLabel);
+
+                //box raspunsuri
+                VBox answerBox = new VBox();
+                answerBox.setSpacing(0);
+                answerBox.setPadding(new Insets(0, 0, 0, 50));
+                answerBox.getChildren().addAll(answer1Label, answer2Label, answer3Label);
+
+                //box rasp corecte+input
+                HBox correctAnsBox = new HBox();
+                correctAnsBox.setSpacing(50);
+                correctAnsBox.setPadding(new Insets(0, 0, 0, 50));
+                correctAnsBox.getChildren().addAll(correctAnswers, yourAnswers);
+
+                totalBox.getChildren().addAll(questionBox, answerBox, correctAnsBox);
+
+            }
+
+
+            //scrollbar
+            javafx.scene.control.ScrollBar scrollBar = new javafx.scene.control.ScrollBar();
+            ((Group) seeAnswersScene.getRoot()).getChildren().addAll(totalBox, scrollBar);
+            scrollBar.setPrefWidth(20);
+            scrollBar.setLayoutX(seeAnswersScene.getWidth() - scrollBar.getWidth());
+            scrollBar.setMin(0);
+            scrollBar.setOrientation(Orientation.VERTICAL);
+            scrollBar.setPrefHeight(800);
+
+            scrollBar.setMax(10000);
+
+            scrollBar.valueProperty().addListener(new ChangeListener<Number>() {
+                @Override
+                public void changed(ObservableValue<? extends Number> observableValue, Number number, Number t1) {
+                    totalBox.setLayoutY(-t1.doubleValue());
+                }
+            });
+
+        });
+
 
         //box text
         HBox hbox2 = new HBox();
@@ -430,12 +530,12 @@ public class Main extends Application {
         VBox vBox = new VBox();
         vBox.setSpacing(50);
         vBox.setPadding(new Insets(150, 0, 0, 300));
-        vBox.getChildren().add(restartButton);
+        vBox.getChildren().addAll(restartButton, answButton);
 
         //box intreg
         VBox vBox2 = new VBox();
-        vBox2.setSpacing(30);
-        vBox2.setPadding(new Insets(25, 0, 0, 100));
+        vBox2.setSpacing(0);
+        vBox2.setPadding(new Insets(20, 0, 0, 100));
         vBox2.getChildren().addAll(hbox2, vBox3, vBox);
         ((Group) scene4.getRoot()).getChildren().addAll(vBox2);
     }
