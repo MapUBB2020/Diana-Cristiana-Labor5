@@ -66,6 +66,9 @@ public class Main extends Application {
         final int[] count = {0}; //nr intrebare curenta
         finalQuestions = new ArrayList<>(); //resetare liste la inceperea fiecarui chestionar
         finalAnswers = new ArrayList<>();
+        final int[] index = new int[1];
+        List<Integer> questionNumber = new ArrayList<>();
+        final int[] countLaterQ = {0};
 
 
         //nume pagina
@@ -182,8 +185,8 @@ public class Main extends Application {
                 //pagina intrebari (resetata pt fiecare intrebare)
                 Scene scene3 = new Scene(new Group(), 1100, 800);
 
-                //daca ajunge la final si are mai putin de 5 intrebari gresite => admis
-                if (count[0] == 25 && incorrectPoints < 5) {
+                //daca a ajuns la final si cu chestionarul si cu intrebarile pe care le-a lasat pe mai tarziu sau daca ajunge la final si are mai putin de 5 intrebari gresite => admis
+                if ((count[0] >= 25 && countLaterQ[0] == questionNumber.size() && incorrectPoints < 5) || (questionNumber.isEmpty() && count[0] == 25 && incorrectPoints < 5)) {
                     sfarsit(scene3, primaryStage, admis);
                     timeline.stop();
                     startTimeMin = 0;
@@ -200,9 +203,17 @@ public class Main extends Application {
                 } else {
                     //resetare pag cu intrebari
 
+                    //daca mai are intrebari lasate pe mai tarziu, se ia numarul intrebarii
+                    if (count[0] == 25) {
+                        index[0] = questionNumber.get(countLaterQ[0]);
+                        countLaterQ[0] += 1;
+                    }
+                    else {
+                        index[0] = count[0] += 1;
+                    }
+
                     //label intrebare
-                    int index = count[0] += 1;
-                    String q1 = count[0] + 1 + ". " + questionSheet.getQuestions().get(index).getQuestion(); //ia intrebarile pe rand, incepand de la a2a
+                    String q1 = index[0] + 1 + ". " + questionSheet.getQuestions().get(index[0]).getQuestion(); //ia intrebarile pe rand, incepand de la a2a
                     javafx.scene.control.Label question = new javafx.scene.control.Label(q1);
                     question.setFont(new Font("Arial", 24));
                     question.setWrapText(true);
@@ -210,9 +221,9 @@ public class Main extends Application {
                     question.setMaxWidth(900);
 
                     //ia raspunsurile pe rand
-                    String a1 = questionSheet.getQuestions().get(index).getAnswers().get(0);
-                    String a2 = questionSheet.getQuestions().get(index).getAnswers().get(1);
-                    String a3 = questionSheet.getQuestions().get(index).getAnswers().get(2);
+                    String a1 = questionSheet.getQuestions().get(index[0]).getAnswers().get(0);
+                    String a2 = questionSheet.getQuestions().get(index[0]).getAnswers().get(1);
+                    String a3 = questionSheet.getQuestions().get(index[0]).getAnswers().get(2);
 
 
                     //label-uri raspunsuri
@@ -248,6 +259,7 @@ public class Main extends Application {
                     correct.setText("✓" + correctPoints);
                     incorrect.setText("✗" + incorrectPoints);
 
+
                     //buton trimite
                     javafx.scene.control.Button nextButton1 = new javafx.scene.control.Button("TRIMITE");
                     nextButton1.setPrefSize(170, 60);
@@ -256,7 +268,7 @@ public class Main extends Application {
                     nextButton1.setOnAction((event) -> {
                         //se inregistreaza rasp, se vf daca e corect si se actualizeaza nr de puncte corecte/gresite
                         String answer = inputAnswer1.getText();
-                        Question question1 = questionSheet.getQuestions().get(count[0]);
+                        Question question1 = questionSheet.getQuestions().get(index[0]);
                         finalQuestions.add(question1);
                         finalAnswers.add(answer);
                         correctPoints = controller.answerQuestion(correctPoints, incorrectPoints, answer, question1)[0];
@@ -268,6 +280,23 @@ public class Main extends Application {
 
 
                     });
+
+
+                    //buton mai tazriu
+                    javafx.scene.control.Button laterButton = new javafx.scene.control.Button("MAI TARZIU");
+                    laterButton.setPrefSize(170, 60);
+                    laterButton.setFont(new Font("Arial", 20));
+                    laterButton.setStyle("-fx-background-color: #A3E4D7; -fx-border-width: 5px; -fx-border-color: #76D7C4 ");
+                    laterButton.setOnAction(event -> {
+                        Question question1 = questionSheet.getQuestions().get(count[0]);
+                        questionSheet.getQuestions().add(question1); //adaugam intrebarea la sfarsit
+                        questionNumber.add(index[0]); //adaugam si numarul intrebarii
+
+                        //se apeleaza din nou functia
+                        CreateScene createScene = new CreateScene();
+                        createScene.create();
+                    });
+
 
                     //buton sterge
                     javafx.scene.control.Button deleteButton1 = new javafx.scene.control.Button("STERGE");
@@ -286,9 +315,9 @@ public class Main extends Application {
 
                     //box butoane
                     HBox buttonsBox = new HBox();
-                    buttonsBox.setSpacing(150);
-                    buttonsBox.setPadding(new Insets(50, 0, 0, 200));
-                    buttonsBox.getChildren().addAll(deleteButton1, nextButton1);
+                    buttonsBox.setSpacing(70);
+                    buttonsBox.setPadding(new Insets(50, 0, 0, 100));
+                    buttonsBox.getChildren().addAll(deleteButton1, laterButton, nextButton1);
 
 
                     //box raspunsuri
@@ -314,7 +343,8 @@ public class Main extends Application {
 
         //scene2
         //pagina care contine prima intrebare
-        String q = count[0] + 1 + ". " + questionSheet.getQuestions().get(count[0]).getQuestion(); //ia prima intrebare
+        index[0] = count[0];
+        String q = index[0] + 1 + ". " + questionSheet.getQuestions().get(count[0]).getQuestion(); //ia prima intrebare
         javafx.scene.control.Label firstQ = new javafx.scene.control.Label(q);
         firstQ.setFont(new Font("Arial", 24));
         firstQ.setWrapText(true);
@@ -373,6 +403,22 @@ public class Main extends Application {
 
         });
 
+        //buton mai tazriu
+        javafx.scene.control.Button laterButton = new javafx.scene.control.Button("MAI TARZIU");
+        laterButton.setPrefSize(170, 60);
+        laterButton.setFont(new Font("Arial", 20));
+        laterButton.setStyle("-fx-background-color: #A3E4D7; -fx-border-width: 5px; -fx-border-color: #76D7C4 ");
+        laterButton.setOnAction(event -> {
+            Question question1 = questionSheet.getQuestions().get(count[0]);
+            questionSheet.getQuestions().add(question1); //adaugam intrebarea la sfarsit
+            questionNumber.add(index[0]);
+
+            //se apeleaza din nou functia
+            CreateScene createScene = new CreateScene();
+            createScene.create();
+        });
+
+
         //update valori puncte
         correct.setText("✓" + correctPoints);
         incorrect.setText("✗" + incorrectPoints);
@@ -394,9 +440,9 @@ public class Main extends Application {
 
         //box butoane
         HBox buttonsBox = new HBox();
-        buttonsBox.setSpacing(150);
-        buttonsBox.setPadding(new Insets(50, 0, 0, 200));
-        buttonsBox.getChildren().addAll(deleteButton, nextButton);
+        buttonsBox.setSpacing(70);
+        buttonsBox.setPadding(new Insets(50, 0, 0, 100));
+        buttonsBox.getChildren().addAll(deleteButton, laterButton, nextButton);
 
 
         //box raspunsuri
